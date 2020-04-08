@@ -279,8 +279,6 @@ public final class BraintreePlugin extends CordovaPlugin implements PaymentMetho
     private void handleDropInPaymentUiResult(int resultCode, PaymentMethodNonce paymentMethodNonce) {
         Log.i(TAG, "handleDropInPaymentUiResult resultCode ==> " + resultCode + ", paymentMethodNonce = " + paymentMethodNonce);
 
-        Log.i(TAG, "Activity finished");
-
         if (_callbackContext == null) {
             Log.e(TAG, "handleDropInPaymentUiResult exiting ==> callbackContext is invalid");
             return;
