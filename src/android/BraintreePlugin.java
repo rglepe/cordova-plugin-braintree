@@ -46,6 +46,8 @@ public final class BraintreePlugin extends CordovaPlugin implements PaymentMetho
     private BraintreeFragment braintreeFragment = null;
     private String temporaryToken = null;
 
+    private boolean firstRun = true;
+
     @Override
     public synchronized boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
@@ -181,6 +183,7 @@ public final class BraintreePlugin extends CordovaPlugin implements PaymentMetho
             // );
         }
 
+        this.firstRun = true;
         this.cordova.setActivityResultCallback(this);
 
         try {
@@ -217,10 +220,18 @@ public final class BraintreePlugin extends CordovaPlugin implements PaymentMetho
 
         Log.i(TAG, "DropIn Activity Result: " + requestCode + ", " + resultCode);
 
+
         if (_callbackContext == null) {
             Log.e(TAG, "onActivityResult exiting ==> callbackContext is invalid");
             return;
         }
+
+        if(this.firstRun) { //mrosetti - This hack is necessary to resolve problem on second pay attempt
+            Log.i(TAG, "First run, skipping");
+            this.firstRun = false;
+            return;
+        }
+
 
         if (requestCode == DROP_IN_REQUEST) {
 
@@ -266,8 +277,9 @@ public final class BraintreePlugin extends CordovaPlugin implements PaymentMetho
      * @param paymentMethodNonce Contains information about a successful payment.
      */
     private void handleDropInPaymentUiResult(int resultCode, PaymentMethodNonce paymentMethodNonce) {
-
         Log.i(TAG, "handleDropInPaymentUiResult resultCode ==> " + resultCode + ", paymentMethodNonce = " + paymentMethodNonce);
+
+        Log.i(TAG, "Activity finished");
 
         if (_callbackContext == null) {
             Log.e(TAG, "handleDropInPaymentUiResult exiting ==> callbackContext is invalid");
