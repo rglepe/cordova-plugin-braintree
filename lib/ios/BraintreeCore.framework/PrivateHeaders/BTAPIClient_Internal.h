@@ -6,6 +6,7 @@
 #import "BTAPIHTTP.h"
 #import "BTGraphQLHTTP.h"
 #import "BTJSON.h"
+#import "BTPayPalUAT.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, BTAPIClientHTTPType) {
     /// Use the Gateway
     BTAPIClientHTTPTypeGateway = 0,
-    
+
     /// Use the Braintree API
     BTAPIClientHTTPTypeBraintreeAPI,
 
@@ -22,11 +23,17 @@ typedef NS_ENUM(NSInteger, BTAPIClientHTTPType) {
     BTAPIClientHTTPTypeGraphQLAPI,
 };
 
+typedef NS_ENUM(NSInteger, BTAPIClientAuthorizationType) {
+    BTAPIClientAuthorizationTypeTokenizationKey = 0,
+    BTAPIClientAuthorizationTypeClientToken,
+    BTAPIClientAuthorizationTypePayPalUAT,
+};
 
 @interface BTAPIClient ()
 
 @property (nonatomic, copy, nullable) NSString *tokenizationKey;
 @property (nonatomic, strong, nullable) BTClientToken *clientToken;
+@property (nonatomic, strong, nullable) BTPayPalUAT *payPalUAT;
 @property (nonatomic, strong) BTHTTP *http;
 @property (nonatomic, strong) BTHTTP *configurationHTTP;
 @property (nonatomic, strong) BTAPIHTTP *braintreeAPI;
@@ -67,6 +74,16 @@ typedef NS_ENUM(NSInteger, BTAPIClientHTTPType) {
   parameters:(nullable NSDictionary *)parameters
   httpType:(BTAPIClientHTTPType)httpType
   completion:(nullable void(^)(BTJSON * _Nullable body, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionBlock;
+
+/**
+ Gets base GraphQL URL
+*/
++ (nullable NSURL *)graphQLURLForEnvironment:(NSString *)environment;
+
+/**
+ Determines the BTAPIClientAuthorizationType of the given authorization string.  Exposed for testing.
+ */
++ (BTAPIClientAuthorizationType)authorizationTypeForAuthorization:(NSString *)authorization;
 
 @end
 

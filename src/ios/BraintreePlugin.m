@@ -157,7 +157,7 @@ NSString *countryCode;
 
     /* Drop-IN 5.0 */
     BTDropInRequest *paymentRequest = [[BTDropInRequest alloc] init];
-    paymentRequest.amount = amount;
+    //paymentRequest.amount = amount;
     paymentRequest.applePayDisabled = !applePayInited;
 
     BTDropInController *dropIn = [[BTDropInController alloc] initWithAuthorization:self.token request:paymentRequest handler:^(BTDropInController * _Nonnull controller, BTDropInResult * _Nullable result, NSError * _Nullable error) {
