@@ -13,7 +13,6 @@
 #import <BraintreeCard/BTCardNonce.h>
 #import <BraintreePayPal/BraintreePayPal.h>
 #import <BraintreeApplePay/BraintreeApplePay.h>
-#import <Braintree3DSecure/Braintree3DSecure.h>
 #import <BraintreeVenmo/BraintreeVenmo.h>
 #import "AppDelegate.h"
 
@@ -157,7 +156,7 @@ NSString *countryCode;
 
     /* Drop-IN 5.0 */
     BTDropInRequest *paymentRequest = [[BTDropInRequest alloc] init];
-    //paymentRequest.amount = amount;
+   // paymentRequest.amount = amount;
     paymentRequest.applePayDisabled = !applePayInited;
 
     BTDropInController *dropIn = [[BTDropInController alloc] initWithAuthorization:self.token request:paymentRequest handler:^(BTDropInController * _Nonnull controller, BTDropInResult * _Nullable result, NSError * _Nullable error) {
@@ -282,7 +281,7 @@ NSString *countryCode;
     BTCardNonce *cardNonce;
     BTPayPalAccountNonce *payPalAccountNonce;
     BTApplePayCardNonce *applePayCardNonce;
-    BTThreeDSecureCardNonce *threeDSecureCardNonce;
+//    BTThreeDSecureCardNonce *threeDSecureCardNonce;
     BTVenmoAccountNonce *venmoAccountNonce;
 
     if ([paymentMethodNonce isKindOfClass:[BTCardNonce class]]) {
@@ -297,9 +296,9 @@ NSString *countryCode;
         applePayCardNonce = (BTApplePayCardNonce*)paymentMethodNonce;
     }
 
-    if ([paymentMethodNonce isKindOfClass:[BTThreeDSecureCardNonce class]]) {
-        threeDSecureCardNonce = (BTThreeDSecureCardNonce*)paymentMethodNonce;
-    }
+//    if ([paymentMethodNonce isKindOfClass:[BTThreeDSecureCardNonce class]]) {
+//        threeDSecureCardNonce = (BTThreeDSecureCardNonce*)paymentMethodNonce;
+//    }
 
     if ([paymentMethodNonce isKindOfClass:[BTVenmoAccountNonce class]]) {
         venmoAccountNonce = (BTVenmoAccountNonce*)paymentMethodNonce;
@@ -335,10 +334,10 @@ NSString *countryCode;
                                           },
 
                                   // BTThreeDSecureCardNonce Fields
-                                  @"threeDSecureCard": !threeDSecureCardNonce ? [NSNull null] : @{
-                                          @"liabilityShifted": threeDSecureCardNonce.liabilityShifted ? @YES : @NO,
-                                          @"liabilityShiftPossible": threeDSecureCardNonce.liabilityShiftPossible ? @YES : @NO
-                                          },
+//                                  @"threeDSecureCard": !threeDSecureCardNonce ? [NSNull null] : @{
+//                                          @"liabilityShifted": threeDSecureCardNonce.liabilityShifted ? @YES : @NO,
+//                                          @"liabilityShiftPossible": threeDSecureCardNonce.liabilityShiftPossible ? @YES : @NO
+//                                          },
 
                                   // BTVenmoAccountNonce Fields
                                   @"venmoAccount": !venmoAccountNonce ? [NSNull null] : @{
