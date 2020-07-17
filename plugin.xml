@@ -91,7 +91,7 @@
         <header-file src="src/ios/BraintreePlugin.h" />
         <source-file src="src/ios/BraintreePlugin.m" />
 
-        <framework src="lib/ios/Braintree3DSecure.framework" custom="true" embed="true" weak="false" />
+        <!-- <framework src="lib/ios/Braintree3DSecure.framework" custom="true" embed="true" weak="false" /> -->
         <framework src="lib/ios/BraintreeAmericanExpress.framework" custom="true" embed="true" weak="false" />
         <framework src="lib/ios/BraintreeApplePay.framework" custom="true" embed="true" weak="false" />
         <framework src="lib/ios/BraintreeCard.framework" custom="true" embed="true" weak="false" />
